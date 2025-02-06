@@ -1,13 +1,14 @@
 'use client'
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const page = () => {
-    const router = useSearchParams();
-    const token = router.get('token');
     const [message, setMessage] = useState("");
+
     useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get("token");
+        console.log('Toke : ', token);
         const userToken = async () => {
             try {
                 const res = await fetch('/api/verification', {
@@ -25,14 +26,14 @@ const page = () => {
             }
         }
         userToken();
-    }, [token]);
+    }, []);
 
     return (
-        <Suspense>
+        <div>
             <h2>Email Verification</h2>
             <p>{message || "Verifying..."}</p>
             <Link href="/loginpage" className={`px-10 py-2 text-white text-lg font-semibold ${message ? 'bg-blue-600 pointer-events-auto' : 'bg-blue-300 pointer-events-none'}`}>Go to login</Link>
-        </Suspense>
+        </div>
     );
 };
 

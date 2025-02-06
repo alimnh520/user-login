@@ -10,9 +10,11 @@ const page = () => {
     const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const res = await fetch('/api/signup', {
                 method: 'POST',
@@ -29,12 +31,13 @@ const page = () => {
                     router.push('/userVerify');
                 }, 500);
             }
-            setUserName('');
-            setEmail('');
-            setPassword('');
+
         } catch (error) {
             console.log(error);
         }
+        setUserName('');
+        setEmail('');
+        setPassword('');
     }
 
     useEffect(() => {
@@ -49,7 +52,10 @@ const page = () => {
         <div className='w-full h-screen flex flex-col items-center justify-center space-y-5'>
             <h1 className='text-4xl font-semibold'>Login User</h1>
 
-            <form className='w-80 h-auto px-4 py-6 rounded-md bg-gray-300 flex flex-col items-center justify-center space-y-5' onSubmit={handleSubmit}>
+            <form className='w-80 h-auto px-4 py-6 rounded-md bg-gray-300 flex flex-col items-center justify-center space-y-5 relative
+            ' onSubmit={handleSubmit}>
+
+                <div className={`size-32 rounded-full border-8 border-transparent border-t-8 border-t-red-800 absolute animate-spin ${loading ? 'block' : 'hidden'}`}></div>
 
                 <input type="text" name='username' className='w-full px-4 py-1.5 outline-none text-lg placeholder:text-sm' placeholder='enter your username...' value={username} onChange={(e) => setUserName(e.target.value)} />
 

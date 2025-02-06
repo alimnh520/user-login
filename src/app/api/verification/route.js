@@ -6,7 +6,7 @@ export const POST = async (request) => {
     try {
         const body = await request.json();
         const token = body.token;
-
+        
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         
         const user = await UserProfile.findById(decoded.userId);

@@ -8,7 +8,6 @@ export function middleware(request) {
     const isPublicPath = path === '/loginpage' || path === '/signuppage' || path === '/userVerify' || path === '/';
 
     const token = request.cookies.get('token')?.value;
-    console.log('The middleware token is : ', token);
 
     if (isPublicPath && token) {
         return NextResponse.redirect(new URL('/homepage', request.url));
