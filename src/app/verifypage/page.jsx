@@ -1,8 +1,8 @@
 'use client'
-import { connectDb } from "@/lib/connectDb";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Suspense } from "react";
 
 const page = () => {
     const router = useSearchParams();
@@ -29,11 +29,11 @@ const page = () => {
     }, [token]);
 
     return (
-        <div>
+        <Suspense>
             <h2>Email Verification</h2>
             <p>{message || "Verifying..."}</p>
             <Link href="/loginpage" className={`px-10 py-2 text-white text-lg font-semibold ${message ? 'bg-blue-600 pointer-events-auto' : 'bg-blue-300 pointer-events-none'}`}>Go to login</Link>
-        </div>
+        </Suspense>
     );
 };
 

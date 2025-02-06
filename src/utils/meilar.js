@@ -11,16 +11,15 @@ export const sendEmail = async ({ email, type, userId }) => {
         const verifyUrl = `http://localhost:3000/verifypage?token=${verifyToken}`;
 
         var transport = nodemailer.createTransport({
-            host: "sandbox.smtp.mailtrap.io",
-            port: 2525,
+            service: "gmail",
             auth: {
-                user: "3ceeca04ae97e1",
-                pass: "8396d818174724"
+                user: process.env.APP_MAIL,
+                pass: process.env.APP_PASS
             }
         });
 
         const mailOptions = {
-            from: 'alimnh412@gmail.com',
+            from: process.env.APP_MAIL,
             to: email,
             subject: 'Verify your account',
             html: `

@@ -28,13 +28,14 @@ export const POST = async (request) => {
 
         const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-        return NextResponse.json({message: 'login success'}).cookies.set('token', token, {
+        const response = NextResponse.json({message: 'login successfully', success: true});
+        response.cookies.set('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             maxAge: 24*60*60*1000,
             path: '/'
         });
-        
+        return response
     } catch (error) {
         return NextResponse.json({ message: 'Failed to login', success: true });
     }
