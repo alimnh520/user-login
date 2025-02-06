@@ -1,8 +1,7 @@
 'use client'
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 const page = () => {
     const router = useSearchParams();
