@@ -8,7 +8,7 @@ export const sendEmail = async ({ email, type, userId }) => {
 
         const verifyToken = jwt.sign({ userId: userId._id }, process.env.JWT_SECRET, { expiresIn: "5m" });
         
-        const verifyUrl = `http://localhost:3000/verifypage?token=${verifyToken}`;
+        const verifyUrl = `https://user-login-dgmk.vercel.app//verifypage?token=${verifyToken}`;
 
         var transport = nodemailer.createTransport({
             service: "gmail",
