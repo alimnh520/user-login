@@ -34,6 +34,9 @@ const page = () => {
       const data = await response.json();
       setLoading(false);
       setMessage(data.message);
+      if (data.success) {
+        router.push('/user');
+      }
     } catch (error) {
       console.log(error);
     }
