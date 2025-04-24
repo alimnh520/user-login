@@ -12,9 +12,11 @@ const page = () => {
     password: "",
   });
 
-  useEffect(() => {
-    document.title = 'লগইন ইউজার'
-  });
+  if (message) {
+    setTimeout(() => {
+      setMessage('')
+    }, 1500);
+  }
 
   const handleChange = (val) => {
     setUser({ ...user, [val.target.name]: val.target.value });
@@ -30,19 +32,8 @@ const page = () => {
         body: JSON.stringify({ user }),
       });
       const data = await response.json();
-      console.log(data)
-      if (data.message) {
-        setLoading(false);
-        setMessage(data.message);
-        setTimeout(() => {
-          setMessage('');
-        }, 2000);
-      }
-      if (data.success) {
-        setLoading(false);
-        router.push("/dashboard");
-        window.location.reload();
-      }
+      setLoading(false);
+      setMessage(data.message);
     } catch (error) {
       console.log(error);
     }
@@ -53,22 +44,22 @@ const page = () => {
   };
 
   return (
-    <div className="w-full h-auto flex flex-col items-center justify-start px-20 py-5 cursor-pointer relative sm:px-0">
+    <div className="w-full mt-16 h-auto flex flex-col items-center justify-start px-20 py-5 cursor-pointer relative max-sm:px-0">
       <img
         src="/bg/login-background.png"
         alt=""
-        className="w-full absolute bottom-0 sm:z-20"
+        className="w-full absolute -bottom-7 max-sm:z-20"
       />
 
-      <div className="w-2/5 h-auto flex flex-col items-center justify-start gap-y-14 sm:px-5 sm:gap-y-10">
-        <div className="h-32 w-full rounded-lg border-2 border-[#dadfd9] bg-[#d2e3d0] p-3 sm:w-full sm:h-auto">
+      <div className="w-full h-auto flex flex-col items-center justify-start gap-y-14 max-sm:px-5 max-sm:gap-y-10">
+        <div className="h-32 w-[550px] rounded-lg border-2 border-[#dadfd9] bg-[#d2e3d0] p-3 max-sm:w-full max-sm:h-auto">
           <p className="font-semibold text-[#665743] ">
             অফিস ব্যবহারকারীগণ কর্তৃক লগইন করতে কোন সমস্যা পরিলক্ষিত হলে বা বদলি
             জনিত কারণে সহায়তার জন্য নিম্নের নাম্বারে যোগাযোগ করুনঃ তৃপ্তি ভৌমিকঃ
             ০১৮৯৬০৪৭১১৭ <br /> যুবায়ের আহমেদঃ ০১৮৯৬০৪৭১১১
           </p>
         </div>
-        <div className="h-auto w-96 border border-gray-300 rounded-lg p-5 flex flex-col items-center justify-start gap-y-5 pb-16 bg-white z-10 relative sm:w-full sm:pb-12">
+        <div className="h-auto w-[450px] border border-gray-300 rounded-lg p-5 flex flex-col items-center justify-start gap-y-5 pb-16 bg-white z-10 relative max-sm:w-full max-sm:pb-12">
           {loading && (
             <div className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 z-20 bg-white">
               <img
